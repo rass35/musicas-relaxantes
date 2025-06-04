@@ -27,70 +27,35 @@
       margin-bottom: 1rem;
       text-align: center;
     }
-    .tabs {
-      display: flex;
-      gap: 0.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
-    }
-    .tab-button {
-      background: #1e1e1e;
-      border: 2px solid #333;
-      color: #81d4fa;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      min-width: 80px;
-      text-align: center;
-    }
-    .tab-button.active {
-      background: #81d4fa;
-      color: #121212;
-      border-color: #81d4fa;
-    }
-    .sounds-list {
-      background: #1e1e1e;
-      border-radius: 20px;
-      padding: 1.5rem;
+    .sounds-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
       width: 100%;
       max-width: 480px;
-      max-height: 280px;
-      overflow-y: auto;
+    }
+    .sound-box {
+      background: #1e1e1e;
+      border-radius: 20px;
+      padding: 1.5rem 1rem;
       box-shadow: 0 0 15px #81d4facc;
-      position: relative;
       border: 4px solid #81d4fa;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      background-image:
-        repeating-linear-gradient(
-          0deg,
-          #1e1e1e 0,
-          #1e1e1e 6px,
-          #81d4fa 6px,
-          #81d4fa 8px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          #1e1e1e 0,
-          #1e1e1e 6px,
-          #81d4fa 6px,
-          #81d4fa 8px
-        );
-      background-blend-mode: multiply;
       color: #81d4fa;
+      user-select: none;
+      transition: box-shadow 0.3s;
+    }
+    .sound-box:hover {
+      box-shadow: 0 0 25px #81d4faee;
     }
     .sound-button {
       background: transparent;
       border: 2px solid #81d4fa;
       color: #81d4fa;
       padding: 1rem 2rem;
-      margin: 0.8rem 0;
+      margin-bottom: 0.8rem;
       border-radius: 50%;
       cursor: pointer;
       font-size: 2.4rem;
@@ -100,8 +65,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.3s, color 0.3s;
-      user-select: none;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
       box-shadow: 0 0 12px #81d4faaa;
     }
     .sound-button:hover {
@@ -110,12 +74,11 @@
       box-shadow: 0 0 20px #81d4faee;
     }
     .sound-label {
-      margin-top: 0.8rem;
       font-size: 1.3rem;
       font-weight: 600;
       text-shadow: 0 0 6px #81d4faaa;
-      user-select: none;
       text-transform: capitalize;
+      text-align: center;
     }
     footer {
       margin-top: 2rem;
@@ -128,21 +91,9 @@
 <body>
   <h1>🎵 Sons Relaxantes</h1>
 
-  <div class="tabs" role="tablist">
-    <button class="tab-button active" role="tab" aria-selected="true" aria-controls="natureza" id="btn-natureza">Natureza</button>
-    <button class="tab-button" role="tab" aria-selected="false" aria-controls="chuva" id="btn-chuva">Chuva</button>
-    <button class="tab-button" role="tab" aria-selected="false" aria-controls="vento" id="btn-vento">Vento</button>
-    <button class="tab-button" role="tab" aria-selected="false" aria-controls="fogo" id="btn-fogo">Fogo</button>
-    <button class="tab-button" role="tab" aria-selected="false" aria-controls="mar" id="btn-mar">Mar</button>
-    <button class="tab-button" role="tab" aria-selected="false" aria-controls="floresta" id="btn-floresta">Floresta</button>
+  <div class="sounds-container">
+    <!-- As caixas serão geradas pelo script -->
   </div>
-
-  <div id="natureza" class="sounds-list" role="tabpanel" aria-labelledby="btn-natureza"></div>
-  <div id="chuva" class="sounds-list" role="tabpanel" aria-labelledby="btn-chuva" hidden></div>
-  <div id="vento" class="sounds-list" role="tabpanel" aria-labelledby="btn-vento" hidden></div>
-  <div id="fogo" class="sounds-list" role="tabpanel" aria-labelledby="btn-fogo" hidden></div>
-  <div id="mar" class="sounds-list" role="tabpanel" aria-labelledby="btn-mar" hidden></div>
-  <div id="floresta" class="sounds-list" role="tabpanel" aria-labelledby="btn-floresta" hidden></div>
 
   <footer>© 2025 Mundo IA Criativo</footer>
 
@@ -159,70 +110,47 @@
     let currentAudio = null;
     let currentButton = null;
 
-    function populateSounds() {
-      Object.keys(sounds).forEach(category => {
-        const container = document.getElementById(category);
-        container.innerHTML = '';
+    const container = document.querySelector('.sounds-container');
 
-        // Botão circular para play/pausa
-        const button = document.createElement('button');
-        button.textContent = '▶️';
-        button.className = 'sound-button';
-        button.title = `Tocar som de ${category}`;
+    Object.keys(sounds).forEach(category => {
+      const box = document.createElement('div');
+      box.className = 'sound-box';
 
-        // Label abaixo do botão
-        const label = document.createElement('div');
-        label.className = 'sound-label';
-        label.textContent = category;
+      const button = document.createElement('button');
+      button.textContent = '▶️';
+      button.className = 'sound-button';
+      button.title = `Tocar som de ${category}`;
 
-        const audio = new Audio(sounds[category]);
-        audio.loop = true;
+      const label = document.createElement('div');
+      label.className = 'sound-label';
+      label.textContent = category;
 
-        button.addEventListener('click', () => {
-          // Parar áudio anterior, se diferente
-          if (currentAudio && currentAudio !== audio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            if (currentButton) currentButton.textContent = '▶️';
-          }
+      const audio = new Audio(sounds[category]);
+      audio.loop = true;
 
-          if (audio.paused) {
-            audio.play();
-            button.textContent = '⏸️';
-            currentAudio = audio;
-            currentButton = button;
-          } else {
-            audio.pause();
-            button.textContent = '▶️';
-            currentAudio = null;
-            currentButton = null;
-          }
-        });
+      button.addEventListener('click', () => {
+        if (currentAudio && currentAudio !== audio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+          if (currentButton) currentButton.textContent = '▶️';
+        }
 
-        container.appendChild(button);
-        container.appendChild(label);
+        if (audio.paused) {
+          audio.play();
+          button.textContent = '⏸️';
+          currentAudio = audio;
+          currentButton = button;
+        } else {
+          audio.pause();
+          button.textContent = '▶️';
+          currentAudio = null;
+          currentButton = null;
+        }
       });
-    }
 
-    populateSounds();
-
-    const tabs = document.querySelectorAll('.tab-button');
-    const panels = document.querySelectorAll('.sounds-list');
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => {
-          t.classList.remove('active');
-          t.setAttribute('aria-selected', 'false');
-        });
-        panels.forEach(p => p.hidden = true);
-
-        tab.classList.add('active');
-        tab.setAttribute('aria-selected', 'true');
-
-        const target = tab.getAttribute('aria-controls');
-        document.getElementById(target).hidden = false;
-      });
+      box.appendChild(button);
+      box.appendChild(label);
+      container.appendChild(box);
     });
   </script>
 </body>
