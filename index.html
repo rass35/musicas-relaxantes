@@ -52,30 +52,69 @@
     }
     .sounds-list {
       background: #1e1e1e;
-      border-radius: 10px;
-      padding: 1rem;
+      border-radius: 20px;
+      padding: 1.5rem;
       width: 100%;
       max-width: 480px;
       max-height: 280px;
       overflow-y: auto;
-      box-shadow: 0 0 10px #81d4fa66;
+      box-shadow: 0 0 15px #81d4facc;
+      /* Caixa de som estilo */
+      position: relative;
+      border: 4px solid #81d4fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      /* "Grade" frontal da caixa */
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          #1e1e1e 0,
+          #1e1e1e 6px,
+          #81d4fa 6px,
+          #81d4fa 8px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          #1e1e1e 0,
+          #1e1e1e 6px,
+          #81d4fa 6px,
+          #81d4fa 8px
+        );
+      background-blend-mode: multiply;
+      color: #81d4fa;
     }
     .sound-button {
-      background: #333;
-      border: none;
-      color: #e0e0e0;
-      width: 100%;
-      padding: 0.9rem;
-      margin: 0.4rem 0;
-      border-radius: 6px;
+      background: transparent;
+      border: 2px solid #81d4fa;
+      color: #81d4fa;
+      padding: 1rem 2rem;
+      margin: 0.8rem 0;
+      border-radius: 50%;
       cursor: pointer;
-      text-align: left;
-      font-size: 1rem;
-      transition: background 0.2s;
+      font-size: 2.4rem;
+      font-weight: bold;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, color 0.3s;
+      user-select: none;
+      box-shadow: 0 0 12px #81d4faaa;
     }
     .sound-button:hover {
       background: #81d4fa;
       color: #121212;
+      box-shadow: 0 0 20px #81d4faee;
+    }
+    .sound-label {
+      margin-top: 0.8rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+      text-shadow: 0 0 6px #81d4faaa;
+      user-select: none;
     }
     footer {
       margin-top: 2rem;
@@ -109,41 +148,52 @@
 
     let currentAudio = null;
     let currentButton = null;
+    let currentLabel = null;
 
     function populateSounds() {
       Object.keys(sounds).forEach(category => {
         const container = document.getElementById(category);
         container.innerHTML = '';
 
+        // Botão circular para play/pausa
         const button = document.createElement('button');
-        button.textContent = `▶️ Tocar`;
+        button.textContent = '▶️';
         button.className = 'sound-button';
+        button.title = `Tocar som de ${category}`;
+
+        // Label abaixo do botão
+        const label = document.createElement('div');
+        label.className = 'sound-label';
+        label.textContent = category.charAt(0).toUpperCase() + category.slice(1);
 
         const audio = new Audio(sounds[category]);
         audio.loop = true;
 
         button.addEventListener('click', () => {
-          // Se já está tocando, para
+          // Parar áudio anterior, se diferente
           if (currentAudio && currentAudio !== audio) {
             currentAudio.pause();
             currentAudio.currentTime = 0;
-            if (currentButton) currentButton.textContent = '▶️ Tocar';
+            if (currentButton) currentButton.textContent = '▶️';
           }
 
           if (audio.paused) {
             audio.play();
-            button.textContent = '⏸️ Pausar';
+            button.textContent = '⏸️';
             currentAudio = audio;
             currentButton = button;
+            currentLabel = label;
           } else {
             audio.pause();
-            button.textContent = '▶️ Tocar';
+            button.textContent = '▶️';
             currentAudio = null;
             currentButton = null;
+            currentLabel = null;
           }
         });
 
         container.appendChild(button);
+        container.appendChild(label);
       });
     }
 
