@@ -3,65 +3,67 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sons Relaxantes Offline</title>
+<title>Sons Relaxantes - Tema Escuro</title>
 <style>
   body {
     background-color: #121212;
     color: #eee;
     font-family: Arial, sans-serif;
     padding: 2rem;
-    text-align: center;
   }
-  button {
-    background-color: #81d4fa;
-    color: #121212;
-    border: none;
-    border-radius: 8px;
-    padding: 1rem 2rem;
-    margin: 1rem;
-    cursor: pointer;
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .sound-list {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .sound-item {
+    background: #222;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sound-item label {
+    flex-grow: 1;
+    margin-right: 1rem;
     font-size: 1.2rem;
   }
-  button:hover {
-    background-color: #4fc3f7;
+  audio {
+    outline: none;
   }
 </style>
 </head>
 <body>
 
-<h1>🎵 Sons Relaxantes Offline</h1>
-<p>Clique para tocar os sons (sem precisar de internet)</p>
+<h1>🎵 Sons Relaxantes</h1>
 
-<button id="btn1">Tocar Som 1 (Beep)</button>
-<button id="btn2">Tocar Som 2 (Clique)</button>
-<button id="btn3">Tocar Som 3 (Ping)</button>
-
-<script>
-  const sounds = {
-    beep: "data:audio/wav;base64,UklGRhQAAABXQVZFZm10IBAAAAABAAEAgD4AAIA+AAABAAgAZGF0YQA=",
-    click: "data:audio/wav;base64,UklGRiIAAABXQVZFZm10IBAAAAABAAEAIlYAAIA+AAACABAAZGF0YQAA",
-    ping: "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAIlYAAIA+AAACABAAZGF0YQAA"
-  };
-
-  const audio1 = new Audio(sounds.beep);
-  const audio2 = new Audio(sounds.click);
-  const audio3 = new Audio(sounds.ping);
-
-  document.getElementById('btn1').onclick = () => {
-    audio1.currentTime = 0;
-    audio1.play();
-  };
-
-  document.getElementById('btn2').onclick = () => {
-    audio2.currentTime = 0;
-    audio2.play();
-  };
-
-  document.getElementById('btn3').onclick = () => {
-    audio3.currentTime = 0;
-    audio3.play();
-  };
-</script>
+<div class="sound-list">
+  <div class="sound-item">
+    <label for="chuva">Chuva</label>
+    <audio id="chuva" controls preload="none" src="sons/chuva.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label for="vento">Vento</label>
+    <audio id="vento" controls preload="none" src="sons/vento.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label for="floresta">Floresta</label>
+    <audio id="floresta" controls preload="none" src="sons/floresta.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label for="fogo">Fogo</label>
+    <audio id="fogo" controls preload="none" src="sons/fogo.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label for="rio">Rio</label>
+    <audio id="rio" controls preload="none" src="sons/rio.mp3"></audio>
+  </div>
+</div>
 
 </body>
 </html>
