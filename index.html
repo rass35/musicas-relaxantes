@@ -1,9 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><meta charset="UTF-8" /><title>Teste Áudio</title></head>
-<body style="background:#121212; color:#eee; text-align:center; padding:2rem;">
-<h1>Teste de Áudio Simples</h1>
-<audio controls preload="auto" style="width:80%;" src="https://cdn.pixabay.com/download/audio/2022/03/04/audio_c1f87cbb10.mp3?filename=forest-birds-ambient-sound-10863.mp3"></audio>
-<p>Clique no play para tocar o som da floresta.</p>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sons Relaxantes Offline</title>
+<style>
+  body {
+    background-color: #121212;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    padding: 2rem;
+    text-align: center;
+  }
+  button {
+    background-color: #81d4fa;
+    color: #121212;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 2rem;
+    margin: 1rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+  button:hover {
+    background-color: #4fc3f7;
+  }
+</style>
+</head>
+<body>
+
+<h1>🎵 Sons Relaxantes Offline</h1>
+<p>Clique para tocar os sons (sem precisar de internet)</p>
+
+<button id="btn1">Tocar Som 1 (Beep)</button>
+<button id="btn2">Tocar Som 2 (Clique)</button>
+<button id="btn3">Tocar Som 3 (Ping)</button>
+
+<script>
+  const sounds = {
+    beep: "data:audio/wav;base64,UklGRhQAAABXQVZFZm10IBAAAAABAAEAgD4AAIA+AAABAAgAZGF0YQA=",
+    click: "data:audio/wav;base64,UklGRiIAAABXQVZFZm10IBAAAAABAAEAIlYAAIA+AAACABAAZGF0YQAA",
+    ping: "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAIlYAAIA+AAACABAAZGF0YQAA"
+  };
+
+  const audio1 = new Audio(sounds.beep);
+  const audio2 = new Audio(sounds.click);
+  const audio3 = new Audio(sounds.ping);
+
+  document.getElementById('btn1').onclick = () => {
+    audio1.currentTime = 0;
+    audio1.play();
+  };
+
+  document.getElementById('btn2').onclick = () => {
+    audio2.currentTime = 0;
+    audio2.play();
+  };
+
+  document.getElementById('btn3').onclick = () => {
+    audio3.currentTime = 0;
+    audio3.play();
+  };
+</script>
+
 </body>
 </html>
