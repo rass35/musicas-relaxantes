@@ -44,6 +44,8 @@
       font-size: 0.9rem;
       cursor: pointer;
       transition: background-color 0.3s;
+      min-width: 80px;
+      text-align: center;
     }
     .tab-button.active {
       background: #81d4fa;
@@ -59,14 +61,12 @@
       max-height: 280px;
       overflow-y: auto;
       box-shadow: 0 0 15px #81d4facc;
-      /* Caixa de som estilo */
       position: relative;
       border: 4px solid #81d4fa;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      /* "Grade" frontal da caixa */
       background-image:
         repeating-linear-gradient(
           0deg,
@@ -115,6 +115,7 @@
       font-weight: 600;
       text-shadow: 0 0 6px #81d4faaa;
       user-select: none;
+      text-transform: capitalize;
     }
     footer {
       margin-top: 2rem;
@@ -131,11 +132,17 @@
     <button class="tab-button active" role="tab" aria-selected="true" aria-controls="natureza" id="btn-natureza">Natureza</button>
     <button class="tab-button" role="tab" aria-selected="false" aria-controls="chuva" id="btn-chuva">Chuva</button>
     <button class="tab-button" role="tab" aria-selected="false" aria-controls="vento" id="btn-vento">Vento</button>
+    <button class="tab-button" role="tab" aria-selected="false" aria-controls="fogo" id="btn-fogo">Fogo</button>
+    <button class="tab-button" role="tab" aria-selected="false" aria-controls="mar" id="btn-mar">Mar</button>
+    <button class="tab-button" role="tab" aria-selected="false" aria-controls="floresta" id="btn-floresta">Floresta</button>
   </div>
 
   <div id="natureza" class="sounds-list" role="tabpanel" aria-labelledby="btn-natureza"></div>
   <div id="chuva" class="sounds-list" role="tabpanel" aria-labelledby="btn-chuva" hidden></div>
   <div id="vento" class="sounds-list" role="tabpanel" aria-labelledby="btn-vento" hidden></div>
+  <div id="fogo" class="sounds-list" role="tabpanel" aria-labelledby="btn-fogo" hidden></div>
+  <div id="mar" class="sounds-list" role="tabpanel" aria-labelledby="btn-mar" hidden></div>
+  <div id="floresta" class="sounds-list" role="tabpanel" aria-labelledby="btn-floresta" hidden></div>
 
   <footer>© 2025 Mundo IA Criativo</footer>
 
@@ -143,12 +150,14 @@
     const sounds = {
       natureza: "natureza.mp3",
       chuva: "chuva.mp3",
-      vento: "vento.mp3"
+      vento: "vento.mp3",
+      fogo: "fogo.mp3",
+      mar: "mar.mp3",
+      floresta: "floresta.mp3"
     };
 
     let currentAudio = null;
     let currentButton = null;
-    let currentLabel = null;
 
     function populateSounds() {
       Object.keys(sounds).forEach(category => {
@@ -164,7 +173,7 @@
         // Label abaixo do botão
         const label = document.createElement('div');
         label.className = 'sound-label';
-        label.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+        label.textContent = category;
 
         const audio = new Audio(sounds[category]);
         audio.loop = true;
@@ -182,13 +191,11 @@
             button.textContent = '⏸️';
             currentAudio = audio;
             currentButton = button;
-            currentLabel = label;
           } else {
             audio.pause();
             button.textContent = '▶️';
             currentAudio = null;
             currentButton = null;
-            currentLabel = null;
           }
         });
 
