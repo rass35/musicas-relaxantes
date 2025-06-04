@@ -9,11 +9,8 @@
       background-color: #121212;
       color: #e0e0e0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      margin: 0; padding: 1rem;
+      display: flex; flex-direction: column; align-items: center;
       min-height: 100vh;
     }
     h1 {
@@ -49,24 +46,25 @@
       padding: 1rem;
       width: 100%;
       max-width: 700px;
-      max-height: 350px;
-      overflow-y: auto;
       box-shadow: 0 0 10px #81d4faaa;
+      display: none;
     }
-    .sound-button {
+    .sounds-list.active {
+      display: block;
+    }
+    .play-button {
       background: #333;
       border: none;
       color: #e0e0e0;
       width: 100%;
-      padding: 0.5rem 1rem;
-      margin: 0.25rem 0;
+      padding: 0.75rem 1rem;
+      margin: 0.5rem 0;
       border-radius: 6px;
       cursor: pointer;
-      text-align: left;
-      font-size: 1rem;
+      font-size: 1.1rem;
       transition: background-color 0.2s;
     }
-    .sound-button:hover {
+    .play-button:hover {
       background: #81d4fa;
       color: #121212;
     }
@@ -74,106 +72,76 @@
       margin-top: 1rem;
       width: 100%;
       max-width: 700px;
-      outline: none;
       border-radius: 8px;
       background: #333;
     }
     footer {
-      margin-top: 1.5rem;
+      margin-top: 2rem;
       color: #555;
       font-size: 0.85rem;
       user-select: none;
-      text-align: center;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🎵 Sons Relaxantes para Dormir - Tema Escuro</h1>
-  </header>
+  <h1>🎵 Sons Relaxantes para Dormir - Tema Escuro</h1>
 
-  <nav class="tabs" role="tablist" aria-label="Categorias de Sons">
-    <button class="tab-button active" role="tab" aria-selected="true" aria-controls="natureza" id="btn-natureza">Natureza</button>
-    <button class="tab-button" role="tab" aria-selected="false" aria-controls="chuva" id="btn-chuva">Chuva</button>
-    <button class="tab-button" role="tab" aria-selected="false" aria-controls="vento" id="btn-vento">Vento</button>
-  </nav>
+  <div class="tabs">
+    <button class="tab-button active" data-category="natureza">Natureza</button>
+    <button class="tab-button" data-category="chuva">Chuva</button>
+    <button class="tab-button" data-category="vento">Vento</button>
+  </div>
 
-  <main>
-    <section id="natureza" class="sounds-list" role="tabpanel" aria-labelledby="btn-natureza">
-      <!-- Sons de Natureza -->
-    </section>
-    <section id="chuva" class="sounds-list" role="tabpanel" aria-labelledby="btn-chuva" hidden>
-      <!-- Sons de Chuva -->
-    </section>
-    <section id="vento" class="sounds-list" role="tabpanel" aria-labelledby="btn-vento" hidden>
-      <!-- Sons de Vento -->
-    </section>
+  <div id="natureza" class="sounds-list active">
+    <button class="play-button">▶️ Tocar som de Natureza</button>
+  </div>
+  <div id="chuva" class="sounds-list">
+    <button class="play-button">▶️ Tocar som de Chuva</button>
+  </div>
+  <div id="vento" class="sounds-list">
+    <button class="play-button">▶️ Tocar som de Vento</button>
+  </div>
 
-    <audio id="audioPlayer" controls preload="none"></audio>
-  </main>
+  <audio id="audioPlayer" controls></audio>
 
   <footer>© 2025 Mundo IA Criativo</footer>
 
   <script>
     const sounds = {
-      natureza: [
-        { name: "Floresta com pássaros", url: "https://cdn.pixabay.com/download/audio/2022/03/04/audio_c1f87cbb10.mp3?filename=forest-birds-ambient-sound-10863.mp3" },
-        { name: "Cachoeira calma", url: "https://cdn.pixabay.com/download/audio/2021/08/04/audio_95f83d63a0.mp3?filename=waterfall-ambient-6272.mp3" },
-        { name: "Grilos à noite", url: "https://cdn.pixabay.com/download/audio/2022/03/02/audio_b37246eb7c.mp3?filename=crickets-night-ambient-10848.mp3" },
-        { name: "Pássaros tropicais", url: "https://cdn.pixabay.com/download/audio/2021/08/04/audio_18e75c0d54.mp3?filename=tropical-birds-ambient-6281.mp3" },
-        { name: "Riacho corrente", url: "https://cdn.pixabay.com/download/audio/2022/03/04/audio_7b77d17994.mp3?filename=stream-water-ambient-sound-10865.mp3" }
-      ],
-      chuva: [
-        { name: "Chuva leve", url: "https://cdn.pixabay.com/download/audio/2022/03/01/audio_4154e52f09.mp3?filename=rain-ambient-10837.mp3" },
-        { name: "Tempestade distante", url: "https://cdn.pixabay.com/download/audio/2022/03/01/audio_0a4e14a2b1.mp3?filename=thunderstorm-distant-10835.mp3" },
-        { name: "Gotejamento de água", url: "https://cdn.pixabay.com/download/audio/2022/03/01/audio_88ccdfc7a7.mp3?filename=water-drip-10840.mp3" },
-        { name: "Chuva na janela", url: "https://cdn.pixabay.com/download/audio/2022/03/01/audio_865b61521f.mp3?filename=rain-window-10838.mp3" },
-        { name: "Chuva forte", url: "https://cdn.pixabay.com/download/audio/2022/03/01/audio_d2b9a4693b.mp3?filename=heavy-rain-10839.mp3" }
-      ],
-      vento: [
-        { name: "Vento suave na floresta", url: "https://cdn.pixabay.com/download/audio/2021/08/04/audio_f4c1db4b07.mp3?filename=wind-ambient-6269.mp3" },
-        { name: "Rajada de vento", url: "https://cdn.pixabay.com/download/audio/2022/03/04/audio_2ea2ac066b.mp3?filename=wind-gust-10864.mp3" },
-        { name: "Vento nas folhas", url: "https://cdn.pixabay.com/download/audio/2021/08/04/audio_3ca21b04bf.mp3?filename=leaves-rustle-ambient-6268.mp3" },
-        { name: "Vento no campo aberto", url: "https://cdn.pixabay.com/download/audio/2022/03/04/audio_9f425e3dce.mp3?filename=open-field-wind-10867.mp3" },
-        { name: "Brisa leve", url: "https://cdn.pixabay.com/download/audio/2022/03/04/audio_b93e8836b2.mp3?filename=light-breeze-10868.mp3" }
-      ]
+      natureza: "sons/natureza.mp3",
+      chuva: "sons/chuva.mp3",
+      vento: "sons/vento.mp3"
     };
 
     const audioPlayer = document.getElementById('audioPlayer');
-
-    function populateSounds(categoryId) {
-      const container = document.getElementById(categoryId);
-      container.innerHTML = '';
-      sounds[categoryId].forEach(sound => {
-        const btn = document.createElement('button');
-        btn.className = 'sound-button';
-        btn.textContent = sound.name;
-        btn.addEventListener('click', () => {
-          audioPlayer.src = sound.url;
-          audioPlayer.play();
-        });
-        container.appendChild(btn);
-      });
-    }
-
-    Object.keys(sounds).forEach(cat => populateSounds(cat));
-
-    const tabs = document.querySelectorAll('.tab-button');
+    const tabButtons = document.querySelectorAll('.tab-button');
     const panels = document.querySelectorAll('.sounds-list');
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => {
-          t.classList.remove('active');
-          t.setAttribute('aria-selected', 'false');
+    // Alternar abas
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const category = button.dataset.category;
+
+        // Atualiza botões
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        // Atualiza painéis
+        panels.forEach(panel => {
+          panel.classList.remove('active');
+          panel.id === category && panel.classList.add('active');
         });
-        panels.forEach(p => p.hidden = true);
+      });
+    });
 
-        tab.classList.add('active');
-        tab.setAttribute('aria-selected', 'true');
+    // Configura botoes de tocar som
+    panels.forEach(panel => {
+      const category = panel.id;
+      const playButton = panel.querySelector('.play-button');
 
-        const targetId = tab.getAttribute('aria-controls');
-        document.getElementById(targetId).hidden = false;
+      playButton.addEventListener('click', () => {
+        audioPlayer.src = sounds[category];
+        audioPlayer.play();
       });
     });
   </script>
