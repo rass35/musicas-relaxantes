@@ -77,12 +77,6 @@
       background: #81d4fa;
       color: #121212;
     }
-    audio {
-      margin-top: 1.2rem;
-      width: 100%;
-      max-width: 480px;
-      border-radius: 8px;
-    }
     footer {
       margin-top: 2rem;
       color: #777;
@@ -100,28 +94,21 @@
     <button class="tab-button" role="tab" aria-selected="false" aria-controls="vento" id="btn-vento">Vento</button>
   </div>
 
-  <div id="natureza" class="sounds-list" role="tabpanel" aria-labelledby="btn-natureza">
-    <!-- Sons Natureza -->
-  </div>
-  <div id="chuva" class="sounds-list" role="tabpanel" aria-labelledby="btn-chuva" hidden>
-    <!-- Sons Chuva -->
-  </div>
-  <div id="vento" class="sounds-list" role="tabpanel" aria-labelledby="btn-vento" hidden>
-    <!-- Sons Vento -->
-  </div>
-
-  <audio id="audioPlayer" controls></audio>
+  <div id="natureza" class="sounds-list" role="tabpanel" aria-labelledby="btn-natureza"></div>
+  <div id="chuva" class="sounds-list" role="tabpanel" aria-labelledby="btn-chuva" hidden></div>
+  <div id="vento" class="sounds-list" role="tabpanel" aria-labelledby="btn-vento" hidden></div>
 
   <footer>© 2025 Mundo IA Criativo</footer>
 
   <script>
     const sounds = {
       natureza: "sons/natureza.mp3",
-      chuva: "chuva.mp3",
+      chuva: "sons/chuva.mp3",
       vento: "sons/vento.mp3"
     };
 
-    const audioPlayer = document.getElementById('audioPlayer');
+    let currentAudio = null;
+    let currentButton = null;
 
     function populateSounds() {
       Object.keys(sounds).forEach(category => {
@@ -129,12 +116,33 @@
         container.innerHTML = '';
 
         const button = document.createElement('button');
-        button.textContent = `Tocar: ${category}`;
+        button.textContent = `▶️ Tocar`;
         button.className = 'sound-button';
+
+        const audio = new Audio(sounds[category]);
+        audio.loop = true;
+
         button.addEventListener('click', () => {
-          audioPlayer.src = sounds[category];
-          audioPlayer.play();
+          // Se já está tocando, para
+          if (currentAudio && currentAudio !== audio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            if (currentButton) currentButton.textContent = '▶️ Tocar';
+          }
+
+          if (audio.paused) {
+            audio.play();
+            button.textContent = '⏸️ Pausar';
+            currentAudio = audio;
+            currentButton = button;
+          } else {
+            audio.pause();
+            button.textContent = '▶️ Tocar';
+            currentAudio = null;
+            currentButton = null;
+          }
         });
+
         container.appendChild(button);
       });
     }
