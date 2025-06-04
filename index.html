@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sons Relaxantes para Dormir - Tema Escuro</title>
+<style>
+  body {
+    background-color: #121212;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    padding: 1rem;
+    margin: 0;
+  }
+  h1 {
+    text-align: center;
+    color: #81d4fa;
+  }
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  nav button {
+    background: #1e1e1e;
+    border: 2px solid #333;
+    color: #81d4fa;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  nav button.active {
+    background: #81d4fa;
+    color: #121212;
+    border-color: #81d4fa;
+  }
+  section {
+    max-width: 600px;
+    margin: 0 auto;
+    display: none;
+  }
+  section.active {
+    display: block;
+  }
+  .sound-item {
+    margin: 0.5rem 0;
+  }
+  audio {
+    width: 100%;
+    outline: none;
+    border-radius: 6px;
+    background-color: #333;
+  }
+  footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+
+<h1>🎵 Sons Relaxantes para Dormir</h1>
+
+<nav aria-label="Categorias de sons">
+  <button class="tab-button active" data-target="natureza">Natureza</button>
+  <button class="tab-button" data-target="chuva">Chuva</button>
+  <button class="tab-button" data-target="vento">Vento</button>
+</nav>
+
+<section id="natureza" class="active" aria-live="polite" aria-label="Sons da Natureza">
+  <div class="sound-item">
+    <label>Floresta com pássaros</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2022/03/04/audio_c1f87cbb10.mp3?filename=forest-birds-ambient-sound-10863.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label>Cachoeira calma</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_95f83d63a0.mp3?filename=waterfall-ambient-6272.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label>Grilos à noite</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2022/03/02/audio_b37246eb7c.mp3?filename=crickets-night-ambient-10848.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label>Pássaros tropicais</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_18e75c0d54.mp3?filename=tropical-birds-ambient-6281.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label>Riacho corrente</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2022/03/04/audio_7b77d17994.mp3?filename=stream-water-ambient-sound-10865.mp3"></audio>
+  </div>
+</section>
+
+<section id="chuva" aria-live="polite" aria-label="Sons de Chuva">
+  <div class="sound-item">
+    <label>Chuva leve</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2022/03/01/audio_4154e52f09.mp3?filename=rain-ambient-10837.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label>Tempestade distante</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2022/03/01/audio_0a4e14a2b1.mp3?filename=thunderstorm-distant-10835.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label>Gotejamento de água</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2022/03/01/audio_88ccdfc7a7.mp3?filename=water-drip-10840.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label>Chuva na janela</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2022/03/01/audio_865b61521f.mp3?filename=rain-window-10838.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label>Chuva forte</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2022/03/01/audio_d2b9a4693b.mp3?filename=heavy-rain-10839.mp3"></audio>
+  </div>
+</section>
+
+<section id="vento" aria-live="polite" aria-label="Sons de Vento">
+  <div class="sound-item">
+    <label>Vento suave na floresta</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_f4c1db4b07.mp3?filename=wind-ambient-6269.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label>Rajada de vento</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2022/03/04/audio_2ea2ac066b.mp3?filename=wind-gust-10864.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label>Vento nas folhas</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_3ca21b04bf.mp3?filename=leaves-rustle-ambient-6268.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label>Vento no campo aberto</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2022/03/04/audio_9f425e3dce.mp3?filename=open-field-wind-10867.mp3"></audio>
+  </div>
+  <div class="sound-item">
+    <label>Brisa leve</label>
+    <audio controls preload="none" src="https://cdn.pixabay.com/download/audio/2022/03/04/audio_b93e8836b2.mp3?filename=light-breeze-10868.mp3"></audio>
+  </div>
+</section>
+
+<script>
+  // Controle simples de abas sem frameworks
+  const buttons = document.querySelectorAll('nav button');
+  const sections = document.querySelectorAll('section');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove ativo de todas as abas
+      buttons.forEach(b => b.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      // Ativa a aba clicada e seção correspondente
+      btn.classList.add('active');
+      const target = btn.getAttribute('data-target');
+      document.getElementById(target).classList.add('active');
+    });
+  });
+</script>
+
+<footer>© 2025 Mundo IA Criativo</footer>
+
+</body>
+</html>
